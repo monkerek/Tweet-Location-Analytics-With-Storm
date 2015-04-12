@@ -22,8 +22,8 @@ public class CacheBolt extends BaseRichBolt {
   public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
       _collector = collector;
 
-      //RedisClient client = new RedisClient("localhost",6379);
-      //redis = client.connect();
+      RedisClient client = new RedisClient("localhost",6379);
+      redis = client.connect();
   }
 
   @Override
@@ -33,14 +33,14 @@ public class CacheBolt extends BaseRichBolt {
       Integer count = tuple.getInteger(1);
 
       //redis.publish("TweetLocationTopology", country + "|" + Long.toString(count));
-
-      _collector.emit(tuple, new Values(country + " - " + count));
-      _collector.ack(tuple);
+      redis.set(country, Long.toString(count));
+      //_collector.emit(tuple, new Values(country + " - " + count));
+      //_collector.ack(tuple);
   }
 
   @Override
   public void declareOutputFields(OutputFieldsDeclarer declarer) {
-    declarer.declare(new Fields("hasing"));
+    //declarer.declare(new Fields("hasing"));
   }
 
 }
