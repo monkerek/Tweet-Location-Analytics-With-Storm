@@ -33,7 +33,9 @@ public class CacheBolt extends BaseRichBolt {
       Integer count = tuple.getInteger(1);
 
       //redis.publish("TweetLocationTopology", country + "|" + Long.toString(count));
-      redis.set(country, Long.toString(count));
+      if(country != null && count != null) {
+        redis.set(country, Long.toString(count));
+      }
       //_collector.emit(tuple, new Values(country + " - " + count));
       //_collector.ack(tuple);
   }
