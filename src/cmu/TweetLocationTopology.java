@@ -50,9 +50,9 @@ public class TweetLocationTopology {
 
       LocalCluster cluster = new LocalCluster();
       cluster.submitTopology("tweet_location", conf, builder.createTopology());
-      Utils.sleep(100000);
-      cluster.killTopology("tweet_location");
-      cluster.shutdown();
+      //Utils.sleep(100000);
+      //cluster.killTopology("tweet_location");
+      //cluster.shutdown();
     }
   }
 }
